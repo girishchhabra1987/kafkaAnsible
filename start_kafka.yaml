@@ -1,0 +1,6 @@
+-
+  name: start kafka
+  hosts: kafkabroker
+  tasks:
+    - name: start kafka
+      shell: nohup {{ kafka_home }}/bin/kafka-server-start.sh {{ kafka_home }}/config/server.properties &

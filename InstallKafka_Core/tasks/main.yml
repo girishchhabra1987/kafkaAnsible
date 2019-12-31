@@ -1,0 +1,17 @@
+---
+# tasks file for InstallKafka_Core
+ #- name: Download kafka
+  # get_url:
+  #   url: http://mirrors.estointernet.in/apache/kafka/2.3.0/kafka_2.11-2.3.0.tgz
+  #   dest: /root/
+
+ - name: Unarchive kafka
+   unarchive:
+     src: /root/kafka_2.11-2.3.0.tgz
+     dest: /root/
+     remote_src: yes
+
+ - name: disable firewall
+   service:
+     name: firewalld
+     state: stopped

@@ -1,0 +1,19 @@
+-
+  name: Uninstall kafka
+ hosts: kafkabroker
+     tasks:
+    - name: stop zookeeper
+      command: "{{ kafka_home }}/bin/zookeeper-server-stop.sh"
+      when:  inventory_hostname == 'broker1'
+
+    - name: stop kafka
+      command: "{{ kafka_home }}/bin/kafka-server-stop.sh"
+
+    - name: delete kafka folder
+      command: "rm -rf {{ kafka_home }}"
+
+    - name: delete kafka log folder
+      command: "rm -rf {{ kafka_logfolder }}"
+
+    - name: delete zookeeper log folder
+      command: "rm -rf {{ zookeeper_datafolder }}"

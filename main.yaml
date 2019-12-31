@@ -1,0 +1,5 @@
+- include: installkafka.yaml
+- include: setup_config.yaml
+- include: start_zookeeper.yaml
+- include: start_kafka.yaml
+- include: list_brokernodes_onzookeeper.yaml

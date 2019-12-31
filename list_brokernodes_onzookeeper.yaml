@@ -1,0 +1,12 @@
+-
+  name: list broker nodes connected to zookeeper
+  hosts: broker1
+  tasks:
+    - name: "pause task"
+      command : "echo pause task starting"
+
+    - pause:
+        seconds: 60
+
+    - name: list broker nodes connected to zookeeper
+      command: "{{ kafka_home }}/bin/zookeeper-shell.sh  localhost:2181 ls /brokers/ids"

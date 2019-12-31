@@ -1,0 +1,21 @@
+
+- name: start zookeeper
+  shell: "nohup {{ kafka_home }}/bin/zookeeper-server-start.sh  {{ kafka_home }}/config/zookeeper.properties &"
+  when: inventory_hostname == 'broker1'
+
+- pause:
+    seconds: 120
+
+
+- name: start kafka
+  shell: "nohup {{ kafka_home }}/bin/kafka-server-start.sh {{ kafka_home }}/config/server.properties &"
+
+- name: "pause task"
+  command : echo pause task starting
+
+- pause:
+    seconds: 60
+
+- name: list broker nodes connected to zookeeper
+  command: "{{ kafka_home }}/bin/zookeeper-shell.sh  localhost:2181 ls /brokers/ids"
+  when: inventory_hostname == 'broker1'

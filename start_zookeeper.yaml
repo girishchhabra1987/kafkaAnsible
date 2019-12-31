@@ -1,0 +1,6 @@
+-
+  name: start zookeeper
+  hosts: broker1
+  tasks:
+    - name: start zookeeper
+      shell: nohup {{ kafka_home }}/bin/zookeeper-server-start.sh  {{ kafka_home }}/config/zookeeper.properties &

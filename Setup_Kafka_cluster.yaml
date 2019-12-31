@@ -1,0 +1,8 @@
+- name: Setup kafka cluster
+  hosts: kafkabroker
+  roles:
+    - InstallKafka_Core
+    - Config_kafka_Cluster
+    - Start_Kafka_Cluster
+
+  #include: list_brokernodes_onzookeeper.yaml

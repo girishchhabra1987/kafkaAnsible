@@ -1,0 +1,64 @@
+-
+  name: Configure kafka brokers
+  hosts: kafkabroker
+  tasks:
+    - name: edit timeout
+      lineinfile:
+       path: "{{kafka_home}}/config/server.properties"
+       regexp: zookeeper.connection.timeout.ms=*
+       line: zookeeper.connection.timeout.ms=60000
+
+    - name: edit zookeeper.properties file
+      lineinfile:
+       path: "{{kafka_home}}/config/zookeeper.properties"
+       regexp: clientPort=*
+       line: clientPort=2181
+      when: inventory_hostname == 'broker1'
+
+    - name: edit zookeeper.properties file for dataDir
+      lineinfile:
+       path: "{{kafka_home}}/config/zookeeper.properties"
+       regexp: dataDir=*
+       line: "dataDir={{ zookeeper_datafolder }}"
+      when: inventory_hostname == 'broker1'
+
+    - name: edit server.properties file for logDir
+      lineinfile:
+       path: "{{kafka_home}}/config/server.properties"
+       regexp: log.dirs=*
+       line: "log.dirs={{ kafka_logfolder }}"
+
+    - name: edit server.properties file zookeeper connection
+      lineinfile:
+       path: "{{kafka_home}}/config/server.properties"
+       regexp: zookeeper.connect=localhost:2181
+       line: zookeeper.connect={{ zookeeper_ip }}:2181
+
+
+
+    - name: edit server.properties file
+      lineinfile:
+        path: "{{ kafka_home }}/config/server.properties"
+        regexp: broker.id=*
+        line: broker.id=0
+      when: inventory_hostname == 'broker1'
+
+    - name: edit server.properties file
+      lineinfile:
+        path: "{{kafka_home}}/config/server.properties"
+        regexp: broker.id=*
+        line: broker.id=1
+      when: inventory_hostname == 'broker2'
+
+    - name: edit server.properties file
+      lineinfile:
+        path: "{{kafka_home}}/config/server.properties"
+        regexp: broker.id=*
+        line: broker.id=2
+      when: inventory_hostname == 'broker3'
+
+    - name: edit listener
+      lineinfile:
+        path: "{{kafka_home}}/config/server.properties"
+        regexp: listeners=PLAINTEXT://:9092
+        line: listeners=PLAINTEXT://{{ ansible_host }}:9092

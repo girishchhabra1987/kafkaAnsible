@@ -1,0 +1,6 @@
+-
+  name: create kafka topic
+  hosts: broker1
+  tasks:
+    - name: create topic
+      command: "{{ kafka_home }}/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3   --partitions 1 --topic topic1"

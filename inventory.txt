@@ -1,0 +1,4 @@
+[kafkabroker]
+broker1 ansible_host=192.168.1.22
+broker2 ansible_host=192.168.1.20
+broker3 ansible_host=192.168.1.19
